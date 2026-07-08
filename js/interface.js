@@ -56,17 +56,12 @@ async function searchAndRenderMovies() {
         return;
     }
 
-    // لو المستخدم مكتبش حاجة، او احرف اقل من 3
-    if (!searchQuery || searchQuery.length < 3) {
-        return;
-    }
 
-        // إخفاء التنقل وإظهار زر الرجوع عند نتائج البحث
+
     document.querySelector('#panigation').classList.add('hidden');
-    document.querySelector('#searchBack').classList.remove('hidden');
     document.querySelector('#panigation').classList.remove('flex');
-    document.querySelector('#searchBack').classList.add('flex');
-
+    // console.log('panigation btns hidden');
+    
     try {
         const { data: movies, error } = await _supabase2
             .from('movies_info')
@@ -85,9 +80,14 @@ async function searchAndRenderMovies() {
                 movieCard.querySelector('a').querySelector('div').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
                 movieSection2.append(movieCard);
             });
+        // console.log('movie loaded')
         } else {
             movieSection2.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً بهذا الاسم.</p>';
         }
+            // إخفاء التنقل وإظهار زر الرجوع عند نتائج البحث
+    document.querySelector('#searchBack').classList.remove('hidden');
+    document.querySelector('#searchBack').classList.add('flex');
+    // console.log('search back btn hide');
 
     } catch (err) {
         console.error('فشل جلب البيانات:', err.message);
