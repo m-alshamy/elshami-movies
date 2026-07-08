@@ -56,7 +56,10 @@ async function searchAndRenderMovies() {
         return;
     }
 
-
+    // لو المستخدم مكتبش حاجة، او احرف اقل من 3
+    if (!searchQuery || searchQuery.length < 3) {
+        return;
+    }
 
     document.querySelector('#panigation').classList.add('hidden');
     document.querySelector('#panigation').classList.remove('flex');
