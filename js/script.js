@@ -10,9 +10,9 @@ const itemsPerPage = 12;
 async function fetchAndRenderMovies() {
 
     // إظهار التنقل وإخفاء زر الرجوع عند التحميل العادي
-    document.querySelector('#panigation').classList.remove('hidden');
+    document.querySelector('#pagination').classList.remove('hidden');
     document.querySelector('#searchBack').classList.add('hidden');
-    document.querySelector('#panigation').classList.add('flex');
+    document.querySelector('#pagination').classList.add('flex');
     document.querySelector('#searchBack').classList.remove('flex');
 
     const urlParams = new URLSearchParams(window.location.search);

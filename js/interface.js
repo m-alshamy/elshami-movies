@@ -61,9 +61,9 @@ async function searchAndRenderMovies() {
         return;
     }
 
-    document.querySelector('#panigation').classList.add('hidden');
-    document.querySelector('#panigation').classList.remove('flex');
-    // console.log('panigation btns hidden');
+    document.querySelector('#pagination').classList.add('hidden');
+    document.querySelector('#pagination').classList.remove('flex');
+    // console.log('pagination btns hidden');
     
     try {
         const { data: movies, error } = await _supabase2

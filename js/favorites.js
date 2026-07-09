@@ -101,16 +101,16 @@ async function fetchAndRenderFavorites() {
     // لو مفيش أي فيلم بالمفضلة
     if (!favoriteIds || favoriteIds.length === 0) {
         movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام في المفضلة حالياً.</p>';
-        document.querySelector('#panigation').classList.add('hidden');
-        document.querySelector('#panigation').classList.remove('flex');
+        document.querySelector('#pagination').classList.add('hidden');
+        document.querySelector('#pagination').classList.remove('flex');
         document.querySelector('#searchBack').classList.remove('hidden');
         document.querySelector('#searchBack').classList.add('flex')
         return;
     }
 
     // إخفاء التنقل (Next/Previous) زي ما بتعمل في البحث
-    document.querySelector('#panigation').classList.add('hidden');
-    document.querySelector('#panigation').classList.remove('flex');
+    document.querySelector('#pagination').classList.add('hidden');
+    document.querySelector('#pagination').classList.remove('flex');
 
     try {
         // تحويل الـ IDs لأرقام لأن عمود id غالباً integer في قاعدة البيانات

@@ -8,7 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="./dist/output.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/all.min.css">
+    </noscript>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/script.js" defer></script>
@@ -21,6 +24,7 @@
     <meta name="description"
         content="مشاهدة أحدث أفلام ومسلسلات الأنمي مترجمة ومدبلجة بجودة عالية مجاناً وبدون إعلانات على موقع الشامي.">
     <link rel="canonical" href="https://elshami-movies.pages.dev/">
+    <link rel="preconnect" href="https://image.tmdb.org" crossorigin>
 
     <meta property="og:title" content="موقع مشاهدة انيميشن - الشامي">
     <meta property="og:description"
@@ -91,7 +95,7 @@
             </section>
         </div>
 
-        <div id="panigation" class="w-full flex justify-center items-center gap-10">
+        <div id="pagination" class="w-full flex justify-center items-center gap-10">
             <button type="button" name="nextBtn" id="nextBtn" onclick="Next()"
                 class="cursor-pointer rounded-lg px-0.5 py-2 group flex items-center">
                 <i
