@@ -120,7 +120,6 @@ async function fetchAndRenderFavorites() {
             .from('movies_info')
             .select('*')
             .in('id', idsAsNumbers)
-            .order('id', { ascending: false });
 
         if (error) throw error;
 
