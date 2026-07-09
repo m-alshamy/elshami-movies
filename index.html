@@ -46,13 +46,14 @@
         class="fixed w-full flex justify-between px-10 h-16 items-center text-pri-text border-b-3 border-b-sec-bg/20 backdrop-blur-sm transition-all z-49 overflow-clip gap-6">
         <!-- logo -->
         <a href="/">
-            <img src="img/Alshami-logo-ar-white.png" alt="logo" class="w-20">
+            <img src="img/Alshami-logo-ar-white.png" alt="شعار موقع الشامي" class="w-20">
         </a>
 
 
         <!-- search -->
         <div class="flex gap-4 sm:w-100">
-            <input type="search" id="searchBar" autocomplete="off" name="searchBar"
+            <label for="searchBar" class="sr-only">ابحث في الموقع</label>
+            <input type="search" id="searchBar" autocomplete="off" name="searchBar" aria-label="ابحث هنا"
                 class="block w-full p-1 ps-9 outline-none border text-sm rounded-2xl focus:bg-sec-bg/10 focus:border-pri-item transition-all"
                 placeholder="ابحث هنا" />
             <button type="button" id="searchBtn" onclick="searchAndRenderMovies()" name="searchBtn"
@@ -73,7 +74,7 @@
             </button>
         </nav>
         <div id="searchBack" class="w-full justify-center items-center py-4 hidden">
-            <button type="button" name="backBtn" id="searchBtn" onclick="SearchBack()"
+            <button type="button" name="backBtn" id="backBtn" onclick="SearchBack()"
                 class="cursor-pointer rounded-lg px-10 py-1 border bg-sec-bg/10 hover:border-pri-item">
                 رجوع
             </button>
@@ -108,18 +109,14 @@
     <!-- end -->
 
     <template>
-        <div id="" class="card">
-            <section class="">
-                <button type="button" class="hover:cursor-pointer">
-                    <span class="heart-outline">
-                        <i class="far fa-heart fa-2xl"></i>
-                    </span>
-                    <span class="heart-solid">
-                        <i class="fas fa-heart fa-2xl"></i>
-                    </span>
+        <div class="card">
+            <section>
+                <button type="button" class="hover:cursor-pointer" aria-pressed="false" aria-label="إضافة إلى المفضلة">
+                    <span class="heart-outline"><i class="far fa-heart fa-2xl hidden"></i></span>
+                    <span class="heart-solid"><i class="fas fa-heart fa-2xl hidden"></i></span>
                 </button>
             </section>
-            <a href="" class="group block w-full h-auto">
+            <a class="group block w-full h-auto">
                 <div>
                     <h4 id="title"></h4>
                 </div>
