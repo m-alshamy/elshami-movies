@@ -43,7 +43,8 @@ async function fetchAndRenderMovies() {
                 movieCard.querySelector('.card').id = movie.id;
                 movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
-                movieCard.querySelector('.card').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
+                movieCard.querySelector('.card').querySelector('img').src = `https://image.tmdb.org/t/p/w342${movie.poster}`;
+                movieCard.querySelector('.card').querySelector('img').alt = movie.title;
                 movieSection.append(movieCard);
             });
             syncFavoriteIcons();
@@ -57,3 +58,4 @@ async function fetchAndRenderMovies() {
     }
 };
 window.addEventListener('load', fetchAndRenderMovies);
+

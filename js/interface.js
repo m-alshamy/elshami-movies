@@ -11,11 +11,11 @@ const itemsPerPage2 = 12
 function Next() {
     const MoviesSec = document.querySelector('section');
     const childrenCount = MoviesSec.children.length;
-    
+
     // الحصول على الرابط الحالي والمعلمات
     const currentUrl = new URL(window.location.href);
     const searchParams = new URLSearchParams(currentUrl.search);
-    
+
     // استخراج رقم الصفحة الحالي أو تعيين 1 كقيمة افتراضية
     let currentPage = parseInt(searchParams.get('page')) || 1;
 
@@ -23,22 +23,22 @@ function Next() {
         searchParams.set('page', currentPage + 1);
         window.location.href = `${currentUrl.pathname}?${searchParams.toString()}`;
     }
-    }
+}
 function Previous() {
     // الحصول على الرابط الحالي والمعلمات
     const currentUrl = new URL(window.location.href);
     const searchParams = new URLSearchParams(currentUrl.search);
-    
+
     // استخراج رقم الصفحة الحالي أو تعيين 1 كقيمة افتراضية
     let currentPage = parseInt(searchParams.get('page')) || 1;
-    
+
     // التأكد من أن رقم الصفحة أكبر من 1 قبل عملية النقصان
     if (currentPage > 1) {
         searchParams.set('page', currentPage - 1);
         window.location.href = `${currentUrl.pathname}?${searchParams.toString()}`;
     }
 }
-function SearchBack(){
+function SearchBack() {
     window.location.reload();
 }
 
@@ -64,7 +64,7 @@ async function searchAndRenderMovies() {
     document.querySelector('#pagination').classList.add('hidden');
     document.querySelector('#pagination').classList.remove('flex');
     // console.log('pagination btns hidden');
-    
+
     try {
         const { data: movies, error } = await _supabase2
             .from('movies_info')
@@ -81,18 +81,19 @@ async function searchAndRenderMovies() {
                 movieCard.querySelector('.card').id = movie.id;
                 movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
-                movieCard.querySelector('.card').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
+                movieCard.querySelector('.card').querySelector('img').src = `https://image.tmdb.org/t/p/w342${movie.poster}`;
+                movieCard.querySelector('.card').querySelector('img').alt = movie.title;
                 movieSection2.append(movieCard);
             });
             syncFavoriteIcons();
-        // console.log('movie loaded')
+            // console.log('movie loaded')
         } else {
             movieSection2.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً بهذا الاسم.</p>';
         }
-            // إخفاء التنقل وإظهار زر الرجوع عند نتائج البحث
-    document.querySelector('#searchBack').classList.remove('hidden');
-    document.querySelector('#searchBack').classList.add('flex');
-    // console.log('search back btn hide');
+        // إخفاء التنقل وإظهار زر الرجوع عند نتائج البحث
+        document.querySelector('#searchBack').classList.remove('hidden');
+        document.querySelector('#searchBack').classList.add('flex');
+        // console.log('search back btn hide');
 
     } catch (err) {
         console.error('فشل جلب البيانات:', err.message);
@@ -113,3 +114,4 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
