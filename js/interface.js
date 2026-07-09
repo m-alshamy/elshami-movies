@@ -78,11 +78,13 @@ async function searchAndRenderMovies() {
             movieSection2.innerHTML = '';
             movies.forEach(movie => {
                 const movieCard = CardTemplate2.content.cloneNode(true);
-                movieCard.querySelector('a').querySelector('div').querySelector('h4').innerText = movie.title;
+                movieCard.querySelector('.card').id = movie.id;
+                movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
-                movieCard.querySelector('a').querySelector('div').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
+                movieCard.querySelector('.card').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
                 movieSection2.append(movieCard);
             });
+            syncFavoriteIcons();
         // console.log('movie loaded')
         } else {
             movieSection2.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً بهذا الاسم.</p>';

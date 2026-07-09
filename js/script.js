@@ -9,12 +9,12 @@ const itemsPerPage = 12;
 
 async function fetchAndRenderMovies() {
 
-        // إظهار التنقل وإخفاء زر الرجوع عند التحميل العادي
+    // إظهار التنقل وإخفاء زر الرجوع عند التحميل العادي
     document.querySelector('#panigation').classList.remove('hidden');
     document.querySelector('#searchBack').classList.add('hidden');
     document.querySelector('#panigation').classList.add('flex');
     document.querySelector('#searchBack').classList.remove('flex');
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     const currentPage = parseInt(urlParams.get('page')) || 1;
 
@@ -35,16 +35,18 @@ async function fetchAndRenderMovies() {
 
 
         if (error) throw error;
-        
+
         if (movies && movies.length > 0) {
             movieSection.innerHTML = '';
             movies.forEach(movie => {
                 const movieCard = CardTemplate.content.cloneNode(true);
-                movieCard.querySelector('a').querySelector('div').querySelector('h4').innerText = movie.title;
+                movieCard.querySelector('.card').id = movie.id;
+                movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
-                movieCard.querySelector('a').querySelector('div').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
+                movieCard.querySelector('.card').style.backgroundImage = `url('https://image.tmdb.org/t/p/w342${movie.poster}')`;
                 movieSection.append(movieCard);
             });
+            syncFavoriteIcons();
         } else {
             movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً في قاعدة البيانات.</p>';
         }
