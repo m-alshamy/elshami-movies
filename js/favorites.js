@@ -82,11 +82,10 @@ window.addEventListener('DOMContentLoaded', () => {
 // fav fetch
 
 async function fetchAndRenderFavorites() {
+    setSectionParam('favourite');
     const favoriteIds = getFavorites();
-
     const movieSection = document.querySelector('section');
     const CardTemplate = document.querySelector('template');
-
     if (!movieSection || !CardTemplate) {
         console.error('لم يتم العثور على section أو template في الصفحة');
         return;

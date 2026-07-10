@@ -82,6 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // fav fetch
 
 async function fetchAndRenderlaters() {
+    setSectionParam('later');
     const laterIds = getLaters();
 
     const movieSection = document.querySelector('section');

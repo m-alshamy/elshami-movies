@@ -8,6 +8,35 @@ const _supabase2 = supabase.createClient(supabaseUrl2, supabaseKey2);
 
 const itemsPerPage2 = 12
 
+function updateActiveNavButton(section) {
+    const favBtn = document.querySelector('#favouriteBtn');
+    const laterBtn = document.querySelector('#laterBtn');
+    const doneBtn = document.querySelector('#doneBtn');
+
+    [favBtn, laterBtn, doneBtn].forEach(btn => btn && btn.classList.remove('bg-red-200/20'));
+
+    if (section === 'favourite' && favBtn) favBtn.classList.add('bg-red-200/20');
+    else if (section === 'later' && laterBtn) laterBtn.classList.add('bg-red-200/20');
+    else if (section === 'watched' && doneBtn) doneBtn.classList.add('bg-red-200/20');
+}
+
+function setSectionParam(sectionValue) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('s', sectionValue);
+    window.history.pushState({}, '', url);
+    updateActiveNavButton(sectionValue);
+}
+
+function removeLastUrlParam() {
+    const url = new URL(window.location.href);
+    const keys = Array.from(url.searchParams.keys());
+    if (keys.length > 0) {
+        url.searchParams.delete(keys[keys.length - 1]);
+        window.history.pushState({}, '', url);
+    }
+    updateActiveNavButton(null); // يشيل التلوين لما نرجع للوضع الافتراضي
+}
+
 function Next() {
     const MoviesSec = document.querySelector('section');
     const childrenCount = MoviesSec.children.length;
@@ -39,11 +68,13 @@ function Previous() {
     }
 }
 function SearchBack() {
+    removeLastUrlParam();
     window.location.reload();
 }
 
 
 async function searchAndRenderMovies() {
+    setSectionParam('search')
     // ناخد قيمة البحث من الـ input بدل ما تكون ثابتة
     const searchInput = document.querySelector('#searchBar');
     const searchQuery = searchInput ? searchInput.value.trim() : '';

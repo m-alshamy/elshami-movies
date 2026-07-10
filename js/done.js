@@ -82,6 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // fav fetch
 
 async function fetchAndRenderdones() {
+    setSectionParam('watched');
     const doneIds = getdones();
 
     const movieSection = document.querySelector('section');

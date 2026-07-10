@@ -61,4 +61,23 @@ async function fetchAndRenderMovies() {
         movieSection.innerHTML = `<p class="text-red-500 p-4 fixed text-center self-center place-self-center">خطأ في الاتصال: ${err.message}</p>`;
     }
 };
-window.addEventListener('load', fetchAndRenderMovies);
+function routeInitialLoad() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const state = urlParams.get('s');
+
+    if (state === 'favourite') {
+        fetchAndRenderFavorites();
+    } else if (state === 'later') {
+        fetchAndRenderlaters();
+    } else if (state === 'watched') {
+        fetchAndRenderdones();
+    } else if (state === 'search') {
+        removeLastUrlParam();
+        window.location.reload();
+    } else {
+        fetchAndRenderMovies();
+    }
+    updateActiveNavButton(state);
+}
+
+window.addEventListener('load', routeInitialLoad);
