@@ -88,6 +88,8 @@ async function searchAndRenderMovies() {
                 movieSection2.append(movieCard);
             });
             syncFavoriteIcons();
+            syncdoneIcons();
+            syncLaterIcons();
             // console.log('movie loaded')
         } else {
             movieSection2.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً بهذا الاسم.</p>';
@@ -116,4 +118,3 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-

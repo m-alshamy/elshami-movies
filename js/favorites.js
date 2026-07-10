@@ -135,6 +135,8 @@ async function fetchAndRenderFavorites() {
             document.querySelector('#searchBack').classList.remove('hidden');
             document.querySelector('#searchBack').classList.add('flex');
             syncFavoriteIcons();
+            syncdoneIcons();
+            syncLaterIcons();
         } else {
             movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متطابقة في قاعدة البيانات.</p>';
         }
