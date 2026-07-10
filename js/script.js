@@ -44,8 +44,9 @@ async function fetchAndRenderMovies() {
                 movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
                 const posterWidth = window.innerWidth < 640 ? 'w185' : 'w342';
-                movieCard.querySelector('.card').querySelector('img').src = `https://image.tmdb.org/t/p/${posterWidth}${movie.poster}`;
-                movieCard.querySelector('.card').querySelector('img').alt = movie.title;
+                const MovieImg = movieCard.querySelector('.card').querySelector('img')
+                MovieImg.src = `https://image.tmdb.org/t/p/${posterWidth}${movie.poster}`;
+                MovieImg.alt = movie.title;
                 movieSection.append(movieCard);
             });
             syncFavoriteIcons();
