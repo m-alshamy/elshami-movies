@@ -16,8 +16,8 @@ function updateActiveNavButton(section) {
     [favBtn, laterBtn, doneBtn].forEach(btn => btn && btn.classList.remove('bg-red-200/20'));
 
     if (section === 'favourite' && favBtn) favBtn.classList.add('bg-red-200/20');
-    else if (section === 'later' && laterBtn) laterBtn.classList.add('bg-red-200/20');
-    else if (section === 'watched' && doneBtn) doneBtn.classList.add('bg-red-200/20');
+    else if (section === 'later' && laterBtn) laterBtn.classList.add('bg-gray-200/20');
+    else if (section === 'watched' && doneBtn) doneBtn.classList.add('bg-green-200/20');
 }
 
 function setSectionParam(sectionValue) {
