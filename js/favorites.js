@@ -1,8 +1,7 @@
-// ============ إدارة المفضلة (localStorage) ============
+// fav add
 
 const FAVORITES_KEY = 'favoriteMovies';
 
-// جلب مصفوفة المفضلة من التخزين المحلي
 function getFavorites() {
     try {
         const stored = localStorage.getItem(FAVORITES_KEY);
@@ -13,7 +12,6 @@ function getFavorites() {
     }
 }
 
-// حفظ مصفوفة المفضلة في التخزين المحلي
 function saveFavorites(favorites) {
     try {
         localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
@@ -22,12 +20,10 @@ function saveFavorites(favorites) {
     }
 }
 
-// التحقق هل الفيلم موجود في المفضلة
 function isFavorite(movieId) {
     return getFavorites().includes(String(movieId));
 }
 
-// إضافة أو إزالة فيلم من المفضلة
 function toggleFavorite(movieId) {
     movieId = String(movieId);
     let favorites = getFavorites();
@@ -39,7 +35,7 @@ function toggleFavorite(movieId) {
     }
 
     saveFavorites(favorites);
-    return favorites.includes(movieId); // ترجع الحالة الجديدة (true = تمت الإضافة)
+    return favorites.includes(movieId);
 }
 
 function updateHeartIcon(cardElement, isFav) {
@@ -57,7 +53,6 @@ function updateHeartIcon(cardElement, isFav) {
     }
 }
 
-// مزامنة كل الأيقونات الظاهرة حاليًا مع بيانات المفضلة المخزنة
 function syncFavoriteIcons() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
@@ -65,7 +60,6 @@ function syncFavoriteIcons() {
     });
 }
 
-// الاستماع لضغطات أزرار القلب عبر الـ event delegation على section
 window.addEventListener('DOMContentLoaded', () => {
     const movieSection = document.querySelector('section');
     if (!movieSection) return;
@@ -74,21 +68,21 @@ window.addEventListener('DOMContentLoaded', () => {
         const heartButton = e.target.closest('button');
         if (!heartButton) return;
 
-        // نتأكد أن الزر هو زر القلب فعلاً (فيه أيقونة heart)
         if (!heartButton.querySelector('.fa-heart')) return;
 
         const card = heartButton.closest('.card');
         if (!card || !card.id) return;
 
-        e.preventDefault(); // لمنع أي سلوك غير مرغوب لو الزر داخل رابط
+        e.preventDefault();
         const nowFavorite = toggleFavorite(card.id);
         updateHeartIcon(card, nowFavorite);
     });
 });
-// ============ عرض المفضلة ============
+
+// fav fetch
 
 async function fetchAndRenderFavorites() {
-    const favoriteIds = getFavorites(); // مصفوفة IDs كـ strings من localStorage
+    const favoriteIds = getFavorites();
 
     const movieSection = document.querySelector('section');
     const CardTemplate = document.querySelector('template');
@@ -98,7 +92,6 @@ async function fetchAndRenderFavorites() {
         return;
     }
 
-    // لو مفيش أي فيلم بالمفضلة
     if (!favoriteIds || favoriteIds.length === 0) {
         movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام في المفضلة حالياً.</p>';
         document.querySelector('#pagination').classList.add('hidden');
@@ -107,38 +100,41 @@ async function fetchAndRenderFavorites() {
         document.querySelector('#searchBack').classList.add('flex')
         return;
     }
-
-    // إخفاء التنقل (Next/Previous) زي ما بتعمل في البحث
     document.querySelector('#pagination').classList.add('hidden');
     document.querySelector('#pagination').classList.remove('flex');
 
     try {
-        // تحويل الـ IDs لأرقام لأن عمود id غالباً integer في قاعدة البيانات
         const idsAsNumbers = favoriteIds.map(id => Number(id));
 
         const { data: movies, error } = await _supabase
             .from('movies_info')
             .select('*')
-            .in('id', idsAsNumbers)
+            .in('id', idsAsNumbers);
 
         if (error) throw error;
 
         if (movies && movies.length > 0) {
+            const moviesMap = new Map(movies.map(m => [String(m.id), m]));
+
+            const orderedMovies = favoriteIds
+                .map(id => moviesMap.get(String(id)))
+                .filter(Boolean);
+
             movieSection.innerHTML = '';
-            movies.forEach(movie => {
+            orderedMovies.forEach(movie => {
                 const movieCard = CardTemplate.content.cloneNode(true);
                 movieCard.querySelector('.card').id = movie.id;
                 movieCard.querySelector('#title').innerText = movie.title;
                 movieCard.querySelector('a').href = movie.url;
                 const posterWidth = window.innerWidth < 640 ? 'w185' : 'w342';
-                const MovieImg = movieCard.querySelector('.card').querySelector('img')
+                const MovieImg = movieCard.querySelector('.card').querySelector('img');
                 MovieImg.src = `https://image.tmdb.org/t/p/${posterWidth}${movie.poster}`;
                 MovieImg.alt = movie.title;
-                movieSection.append(movieCard);
+                movieSection.prepend(movieCard);
             });
             document.querySelector('#searchBack').classList.remove('hidden');
             document.querySelector('#searchBack').classList.add('flex');
-            syncFavoriteIcons(); // عشان تظهر كل القلوب "ممتلئة" لأنها كلها مفضلة
+            syncFavoriteIcons();
         } else {
             movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متطابقة في قاعدة البيانات.</p>';
         }
