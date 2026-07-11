@@ -74,7 +74,6 @@ function SearchBack() {
 
 
 async function searchAndRenderMovies() {
-    setSectionParam('search')
     // ناخد قيمة البحث من الـ input بدل ما تكون ثابتة
     const searchInput = document.querySelector('#searchBar');
     const searchQuery = searchInput ? searchInput.value.trim() : '';
@@ -118,6 +117,7 @@ async function searchAndRenderMovies() {
                 MovieImg.alt = movie.title;
                 movieSection2.append(movieCard);
             });
+            setSectionParam('search')
             syncFavoriteIcons();
             syncLaterIcons();
             // console.log('movie loaded')
