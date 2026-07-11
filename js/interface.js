@@ -119,7 +119,6 @@ async function searchAndRenderMovies() {
                 movieSection2.append(movieCard);
             });
             syncFavoriteIcons();
-            syncdoneIcons();
             syncLaterIcons();
             // console.log('movie loaded')
         } else {

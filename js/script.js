@@ -50,7 +50,6 @@ async function fetchAndRenderMovies() {
                 movieSection.append(movieCard);
             });
             syncFavoriteIcons();
-            syncdoneIcons();
             syncLaterIcons();
         } else {
             movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متوفرة حالياً في قاعدة البيانات.</p>';

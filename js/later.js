@@ -137,7 +137,6 @@ async function fetchAndRenderlaters() {
             document.querySelector('#searchBack').classList.add('flex');
             syncLaterIcons();
             syncFavoriteIcons();
-            syncdoneIcons();
         } else {
             movieSection.innerHTML = '<p class="text-yellow-500 p-4 fixed text-center self-center place-self-center">لا توجد أفلام متطابقة في قاعدة البيانات.</p>';
         }
