@@ -41,21 +41,32 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="الشامى">
     <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "الشامى",
-        "url": "https://elshami-movies.pages.dev/"
-        }
-    </script>
-    <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "الشامى",
-        "url": "https://elshami-movies.pages.dev/",
-        "logo": "https://elshami-movies.pages.dev/img/Alshami-logo-ar-white.png"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://elshami-movies.pages.dev/#website",
+      "name": "الشامى",
+      "url": "https://elshami-movies.pages.dev/",
+      "inLanguage": "ar",
+      "publisher": {
+        "@id": "https://elshami-movies.pages.dev/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://elshami-movies.pages.dev/#organization",
+      "name": "الشامى",
+      "alternateName": "Elshami",
+      "url": "https://elshami-movies.pages.dev/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://elshami-movies.pages.dev/img/Alshami-logo-ar-white.png"
+      }
+    }
+  ]
+}
     </script>
 </head>
 
