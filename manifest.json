@@ -7,13 +7,13 @@
   "theme_color": "#14b8a6",
   "icons": [
     {
-      "src": "/img/Alshami-logo-ar-white.png",
+      "src": "/img/icon192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/img/Alshami-logo-ar-white.png",
+      "src": "/img/icon512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
